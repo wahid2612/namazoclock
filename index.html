@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Namaz Timings</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f7f0;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #006400;
+    }
+    select {
+      padding: 8px;
+      font-size: 16px;
+    }
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #e0f2e9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Namaz Timings</h1>
+  <label for="city">Select City:</label>
+  <select id="city" onchange="loadTimings()">
+    <option value="mumbai">Mumbai</option>
+    <option value="delhi">Delhi</option>
+    <option value="hyderabad">Hyderabad</option>
+  </select>
 
+  <table>
+    <thead>
+      <tr>
+        <th>Prayer</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="timingTable">
+      <!-- Times will appear here -->
+    </tbody>
+  </table>
+
+  <script>
+    const namazTimes = {
+      mumbai: {
+        Fajr: "04:50 AM",
+        Dhuhr: "12:30 PM",
+        Asr: "04:00 PM",
+        Maghrib: "07:00 PM",
+        Isha: "08:30 PM"
+      },
+      delhi: {
+        Fajr: "04:40 AM",
+        Dhuhr: "12:20 PM",
+        Asr: "03:50 PM",
+        Maghrib: "06:55 PM",
+        Isha: "08:20 PM"
+      },
+      hyderabad: {
+        Fajr: "04:45 AM",
+        Dhuhr: "12:25 PM",
+        Asr: "03:55 PM",
+        Maghrib: "06:50 PM",
+        Isha: "08:10 PM"
+      }
+    };
+
+    function loadTimings() {
+      const city = document.getElementById('city').value;
+      const tableBody = document.getElementById('timingTable');
+      const times = namazTimes[city];
+
+      tableBody.innerHTML = '';
+      for (let prayer in times) {
+        const row = `<tr><td>${prayer}</td><td>${times[prayer]}</td></tr>`;
+        tableBody.innerHTML += row;
+      }
+    }
+
+    window.onload = loadTimings;
+  </script>
+</body>
+</html>
